@@ -5,12 +5,12 @@ Please note that this repository contains only "code proof work" samples of the 
 **Booxi, 2018 - now**<br/>
 *Cloud based platform/app for booking and managing appointments.*<br/>
 
-**Commercial website**, blog, client platform.<br/>
+**Commercial website, blog, client platform**. PHP, WordPress, Google Cloud Platform.<br/>
 **Book now widget** for booking appointments online (demo).<br/>
 **Application for Ingenico Tetra platform** (POS terminals) made with Vue js framework.<br/>
 **Integrations with services**: lightspeed, stripe, square, paypal.<br/>
-**API for accepting payments** with POS terminals, made with Lumen (Laravel).<br/>
-**Code generator** app for book now widget.<br/>
+**API for accepting payments with POS terminals**, Lumen (Laravel).<br/>
+**Code generator** app for book now widget. Vue js.<br/>
 
 **Symbiosys, 2016 - 2018**<br/>
 *Software agency*<br/>
