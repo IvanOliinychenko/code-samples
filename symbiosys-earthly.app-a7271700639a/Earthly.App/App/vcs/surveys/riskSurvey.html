@@ -1,0 +1,194 @@
+<div class="panel earthly-panel">
+    <div class="panel-heading">
+        <span class="panel-title">Asset Allocation Questionnaire</span>
+    </div>
+    <div class="progress-bar-container">
+        <div class="progress-bar"
+             role="progressbar"
+             aria-valuenow="{{vm.progress()}}"
+             aria-valuemin="0"
+             aria-valuemax="100"
+             style="width: {{vm.progress()}}%">
+        </div>
+    </div>
+
+    <div class="panel-body survey">
+        <!--#1 DISCLAIMER -->
+        <div ng-show="vm.step == 1" class="col-sm-10 col-sm-offset-1">
+            <div class="padnel-body-title">
+                <b>Disclosure Statement</b>
+            </div>
+            <p>
+                You are about to begin a short questionnaire designed to
+                asses your tolerance for risk, your ability to assume risk and your
+                sustainable impact principles.
+            </p>
+            <p>
+                Completing the questionnaire will require you to input personal information
+                such as your age and annual income.  Rest assured that Earthly
+                does not sell or disclose any personally identifiable information except as
+                required by our custodian and by applicable law.
+            </p>
+        </div>
+        <!--#1 END DISCLAIMER-->
+        <!--#2 AGE-->
+        <div ng-show="vm.step == 2" class="col-sm-10 col-sm-offset-1">
+
+            <div class="padnel-body-title">
+                <div>
+                    <i>Question 1</i>
+                </div>
+                <b>Please fill in the blanks below.</b>
+            </div>
+            <form name="vm.rs_step1_form">
+                <div class="question_1">
+                    I am
+                    <input type="number"
+                            name="Age"
+                            limit-to="2"
+                            min="{{vm.minAge}}"
+                            prevent-e="true"
+                            prevent-plus="true"
+                            prevent-minus="true"
+                            ng-model="vm.surveyAnswers.age"
+                            ng-change="vm.ageCheck()"
+                            autocomplete="off"
+                            maxlength="2"
+                            style="width:50px"
+                            ng-class="{'has-error' : vm.rs_step1_form.Age.$error.min}" />
+                    years old and earn $
+                    <input type="text" name="incomes"
+                            sg-number-input="pure"
+                            ng-model="vm.surveyAnswers.annualIncomes"
+                            required
+                            maxlength="10"
+                            autocomplete="off"
+                            style="width:175px"
+                            ng-class="{'has-error' : vm.surveyAnswers.annualIncomes < 0}" />
+                    per year.
+                    I'll start withdrawing when I turn
+                    <input type="number"
+                            name="RetirementAge"
+                            min="{{vm.surveyAnswers.age}}"
+                            ng-model="vm.surveyAnswers.retirementAge"
+                            ng-change="vm.retirementAgeCheck()"
+                            autocomplete="off"
+                            limit-to="2"
+                            prevent-e="true"
+                            prevent-plus="true"
+                            prevent-minus="true"
+                            maxlength="2"
+                            style="width:50px"
+                            ng-class="{'has-error' : vm.rs_step1_form.RetirementAge.$error.min}" />
+                    years old.
+                </div>
+                <div class="errors-container">
+                    <div ng-show="vm.rs_step1_form.Age.$error.min">You must be at least {{vm.minAge}} years of age to open an account.</div>
+                    <!--Even though this says retirement age, we are changing the input to ask when they need the money.-->
+                    <div ng-show="vm.rs_step1_form.RetirementAge.$error.min">Minimum retirement age should be bigger than your current age.</div>
+                    <div ng-show="vm.surveyAnswers.annualIncomes < 0">Earned income cannot be a negative number.</div>
+                    <!--<div ng-show="vm.incomes <= vm.inputAge" style="color: grey; margin-top: 5px; margin-bottom: 5px;">
+                        <div>The date your money is needed cannot be less than or equal to your current age.</div>
+                    </div>-->
+                </div>
+            </form>
+        </div>
+        <!--#2 END AGE-->
+        <!--#3 REACTION-->
+        <div ng-show="vm.step == 3" class="col-sm-10 col-sm-offset-1">
+            <div class="padnel-body-title">
+                <div>
+                    <i>Question 2</i>
+                </div>
+                <b>If the assets in my portfolio dropped 40% in a year, I would:</b>
+            </div>
+            <div class="question_2">
+                <div class="earthly-radio" ng-repeat="option in vm.portfolioDroppedOptions">
+                    <input type="radio" name="portfolioDropped" ng-model="vm.surveyAnswers.portfolioDropped" value="{{option.id}}" id="radio-pd-{{option.id}}">
+                    <div class="check"></div>
+                    <label for="radio-pd-{{option.id}}">{{option.text}}</label>
+                </div>
+            </div>
+        </div>
+        <!--#3 END REACTION-->
+        <!--#4 STRATEGY-->
+        <div ng-show="vm.step == 4" class="col-sm-10 col-sm-offset-1">
+            <div class="padnel-body-title">
+                <div>
+                    <i>Question 3</i>
+                </div>
+                <b>I desire a less volatile portfolio and am willing to accept lower returns as a result.</b>
+            </div>
+            <div class="question_3">
+                <div class="earthly-radio" ng-repeat="option in vm.lowerVolatilityOptions">
+                    <input type="radio" name="lowerVolatility" ng-model="vm.surveyAnswers.lowerVolatility" value="{{option.id}}" id="radio-lw-{{option.id}}">
+                    <div class="check"></div>
+                    <label for="radio-lw-{{option.id}}">{{option.text}}</label>
+                </div>
+            </div>
+        </div>
+        <!--#5 PORTFOLIOS-->
+        <div ng-show="vm.step == 5" class="col-sm-10 col-sm-offset-1">
+            <div class="padnel-body-title">
+                <div>
+                    <i>Question 4</i>
+                </div>
+                <b>Which of the following types of portfolios are most appealing?</b>
+            </div>
+            <div class="question_4">
+
+                <div class="portfolio-type-legend">
+                    <div class="legend-item">
+                        <div class="legend-sample-max"></div>
+                        Max Annual Return
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-sample-min"></div>
+                        Min Annual Return
+                    </div>
+                </div>
+                <div class="portfolio-type-cards">
+                    <div class="card" ng-repeat="option in vm.hypotheticalPortfolios" ng-click="vm.surveyAnswers.hypotheticalPortfolio = option.id" ng-class="{'active' : option.id == vm.surveyAnswers.hypotheticalPortfolio}">
+                        <div class="card-body">
+                            <div class="earthly-radio">
+                                <input type="radio" name="hypotheticalPortfolios" ng-checked="option.id == vm.surveyAnswers.hypotheticalPortfolio" id="radio-hp-{{option.id}}">
+                                <div class="check"></div>
+                                <label for="radio-hp-{{option.id}}">{{option.text}}</label>
+                            </div>
+
+                            <div class="portfolio-chart">
+                                <div class="max" style="height: {{($index + 1) * 30}}px">{{option.max}}%</div>
+                                <hr />
+                                <div class="min" style="height: {{($index + 1) * 30}}px">-{{option.min}}%</div>
+                            </div>
+
+                            <div class="volatility">{{option.volatility}}% Volatility</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <!--#5 END PORTFOLIOS-->
+    </div>
+    <div class="panel-footer">
+        <div class="buttons-container">
+            <div class="button-container">
+                <button class="btn earthly-button earthly-button-picton-blue" ng-show="vm.step > 1" ng-click="vm.prevStep()">
+                    <i class="fa fa-long-arrow-left icon-left" aria-hidden="true"></i>
+                    Previous
+                </button>
+            </div>
+            <div class="button-container">
+                <button class="btn earthly-button earthly-button-turquoise" ng-click="vm.nextStep()" ng-disabled="vm.disableNext()" ng-show="vm.step >= 1 && vm.step <=4">
+                    Next
+                    <i class="fa fa-long-arrow-right icon-right" aria-hidden="true"></i>
+                </button>
+                <button class="btn earthly-button earthly-button-turquoise" ng-click="vm.saveChanges()" ng-disabled="vm.disableNext()" ng-show="vm.step > 4">
+                    Next
+                    <i class="fa fa-long-arrow-right icon-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>Monitorius</title>
+
+        <link href="css/monitorius.min.css" rel="stylesheet">
+        <link href="css/toggle-switch.css" rel="stylesheet">
+        <link href="app/directives/datepicker/ionic-datepicker.styles.css" rel="stylesheet" />
+        <link href="lib/angularjs-slider/dist/rzslider.min.css" rel="stylesheet" />
+
+        <!-- ionic/angularjs js -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <script src="lib/moment/min/moment-with-locales.min.js"></script>
+        <script src="lib/moment/locale/fr.js"></script>
+        <script src="lib/angular-moment/angular-moment.min.js"></script>
+        <script src="lib/chart.js/dist/Chart.js"></script>
+        <script src="lib/angular-chart.js/dist/angular-chart.js"></script>
+        <script src="lib/angularjs-slider/dist/rzslider.min.js"></script>
+        <script src="lib/moment/min/moment-with-locales.min.js"></script>
+
+        <!--app-->
+        <script src="app/app.js"></script>
+
+        <!--osmos-->
+        <script src="app/osmos/osmos.js"></script>
+        <script src="app/osmos/httpService.js"></script>
+
+        <!-- directives -->
+        <script src="app/directives/compareTo.js"></script>
+        <script src="app/directives/smileRadioBox.js"></script>
+        <script src="app/directives/integer.js"></script>
+        <script src="app/directives/emptyToNull.js"></script>
+        <script src="app/directives/numberInput/number-input.js"></script>
+        <script src="app/directives/datepicker/ionic-datepicker.js"></script>
+
+        <!--managers-->
+        <script src="app/managers/accountManager.js"></script>
+        <script src="app/managers/formManager.js"></script>
+        <script src="app/managers/chartsManager.js"></script>
+
+        <!-- filters -->
+        <script src="app/filters/momentFilter.js"></script>
+        <script src="app/filters/trusted.js"></script>
+
+        <!-- services -->
+        <script src="app/services/toastService.js"></script>
+        <script src="app/services/validationService.js"></script>
+        <script src="app/services/monitoringService.js"></script>
+        
+        <!--controllers-->
+        <script src="app/vcs/account/changePassword/changePassword.js"></script>
+        <script src="app/vcs/account/login/login.js"></script>
+        <script src="app/vcs/account/resetPassword/resetPassword.js"></script>
+        <script src="app/vcs/account/register/register.js"></script>
+        <script src="app/vcs/account/forgotPassword/forgotPassword.js"></script>
+        <script src="app/vcs/help/help.js"></script>
+
+        <script src="app/vcs/forms/monitoringQuotidien.js"></script>
+        <script src="app/vcs/forms/monitoringMatinal.js"></script>
+       
+        <script src="app/vcs/dashboard/dashboard.js"></script>
+        <script src="app/vcs/menu/menu.js"></script>
+
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+    </head>
+    <body ng-app="app">
+        <ion-nav-bar></ion-nav-bar>
+        <ion-nav-view></ion-nav-view>
+    </body>
+</html>

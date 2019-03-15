@@ -1,0 +1,75 @@
+<ion-view view-title="Tableau de bord">
+    <ion-content class="padding">
+        <div class="mon-toggle">
+            <div class="switch-toggle switch-candy" ng-init="currentChart = 'general'">
+                <input id="team" name="team" type="radio" ng-model="currentChart" value="general">
+                <label for="team"><span>Suivi général</span></label>
+                <input id="wallet" name="wallet" type="radio" ng-model="currentChart" value="weightUsg">
+                <label for="wallet"><span>Poids/USG</span></label>
+                <a></a>
+            </div>
+        </div>
+        <div>
+            <div class="charts-container" ng-class="{'move-chart' : currentChart === 'weightUsg'}">
+                <div class="chart-container">
+                    <div class="chart-yLabels-container" ng-show="vm.generalChartData && vm.generalChartData.length >= 0 && vm.generalChartData[0] && currentChart === 'general'">Valeurs</div>
+                    <canvas id="generalChart" class="chart chart-line" chart-colors="vm.generalChartColors" chart-data="vm.generalChartData" chart-series="vm.generalChartSeries" chart-options="vm.generalChartOptions"></canvas>
+                </div>
+                <div class="chart-container weightUsg-chart">
+                    <div class="chart-yLabels-container" ng-show="vm.weightUsgData && vm.weightUsgData.length >= 0 && vm.weightUsgData[0] && currentChart === 'weightUsg'">
+                        <div>Poids</div>
+                        <div>USG</div>
+                    </div>
+                    <canvas id="weightUsg" class="chart chart-line" chart-colors="vm.generalChartColors" chart-data="vm.weightUsgData" chart-series="vm.weightUsgSeries" chart-options="vm.weightUsgOptions"></canvas>
+                </div>
+            </div>
+            <div class="dashboard-card" ng-show="vm.generalChartData && vm.generalChartData.length >= 0 && vm.generalChartData[0] && currentChart === 'general'">
+                <div class="row">
+                    <div class="col">
+                        Variables :
+                    </div>
+                    <div class="col text-right dashboard-card-edit" ng-click="vm.showChartLineSelect()">
+                        <i class="icon ion-edit"></i>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li><span class="dashboard-card-dot" style="background:{{vm.generalChartColors[0]}}"></span> {{vm.getQuestionDefinitionText(vm.generalChartSelected[0]) | trusted}}</li>
+                            <li><span class="dashboard-card-dot" style="background:{{vm.generalChartColors[2]}}"></span> {{vm.getQuestionDefinitionText(vm.generalChartSelected[2]) | trusted}}</li>
+                        </ul>
+                    </div>
+                    <div class="col">
+                        <ul>
+                            <li><span class="dashboard-card-dot" style="background:{{vm.generalChartColors[1]}}"></span> {{vm.getQuestionDefinitionText(vm.generalChartSelected[1]) | trusted}}</li>
+                            <li><span class="dashboard-card-dot" style="background:{{vm.generalChartColors[3]}}"></span> {{vm.getQuestionDefinitionText(vm.generalChartSelected[3]) | trusted}}</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-card" ng-show="vm.weightUsgData && vm.weightUsgData.length >= 0 && vm.weightUsgData[0] && currentChart === 'weightUsg'">
+                <div class="row">
+                    <div class="col">
+                        Variables :
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <ul>
+                            <li><span class="dashboard-card-dot" style="background:{{vm.generalChartColors[0]}}"></span> Poids</li>
+                            <li><span class="dashboard-card-dot" style="background:{{vm.generalChartColors[1]}}"></span> USG</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-buttons-container">
+                <button class="button button-orange margin-bottom" ui-sref="app.monitoringMatinal">
+                    <i class="ion-ios-sunny"></i>&nbsp;&nbsp;Monitoring matinal
+                </button>
+                <button class="button button-aqua" ui-sref="app.monitoringQuotidien">
+                    <i class="ion-ios-moon"></i>&nbsp;&nbsp;Monitoring quotidien
+                </button>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>

@@ -1,0 +1,44 @@
+<template>
+  <require from="bootstrap/css/bootstrap.css"></require>
+  <require from="font-awesome.css"></require>
+  <require from="toastr/build/toastr.min.css"></require>
+  <require from="./styles.css"></require>
+
+  <nav class="navbar navbar-default navbar-fixed-top" role="navigation" show.bind="userInfo">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="#/">
+        <span>Home</span>
+      </a>
+      <a class="navbar-brand" href="#/users">
+        <span>Users</span>
+      </a>
+      <a class="navbar-brand" href="#/groups">
+        <span>Groups</span>
+      </a>
+      <a class="navbar-brand" href="#/roleAccesses">
+        <span>Roles & Accesses</span>
+      </a>
+      <a class="navbar-brand" href="#/accesses">
+        <span>Accesses</span>
+      </a>
+      <a class="navbar-brand" href="#/publicDocuments">
+        <span>Public Documents</span>
+      </a>
+    </div>
+    <ul class="nav navbar-nav navbar-right" style="margin-right: 5px;">
+      <li>
+        <a href click.delegate="logout()">logout</a>
+      </li>
+    </ul>
+  </nav>
+
+  <br />
+  <br />
+  <br />
+
+  <div class="row">
+    <div class="col-sm-12">
+      <router-view></router-view>
+    </div>
+  </div>
+</template>

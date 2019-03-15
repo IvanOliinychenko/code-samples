@@ -1,0 +1,79 @@
+﻿<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+        <title>TeamWallet</title>
+        
+        <link href="css/teamwallet.min.css" rel="stylesheet">
+
+        <!-- vendor css -->
+        <script src="lib/ionic/js/ionic.bundle.js"></script>
+
+        <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
+
+        <script src="lib/lodash/dist/lodash.js"></script>
+        <script src="lib/moment/moment.js"></script>
+        <script src="lib/angular-ui-mask/dist/mask.js"></script>
+
+        <!--osmos-->
+        <script src="app/osmos/osmos.js"></script>
+        <script src="app/osmos/httpService.js"></script>
+
+        <!-- your app's js -->
+        <script src="app/app.js"></script>
+
+        <!--services-->
+        <script src="app/services/tools.js"></script>
+
+        <!-- directives -->
+        <script src="app/directives/selectOnFoucs.js"></script>
+
+        <!--managers-->
+        <script src="app/managers/accountManager.js"></script>
+        <script src="app/managers/configManager.js"></script>
+        <script src="app/managers/creditCardManager.js"></script>
+        <script src="app/managers/deviceManager.js"></script>
+        <script src="app/managers/enumsManager.js"></script>
+        <script src="app/managers/invitesManager.js"></script>
+        <script src="app/managers/profileManager.js"></script>
+        <script src="app/managers/teamInvitesManager.js"></script>
+        <script src="app/managers/teamsManager.js"></script>
+        <script src="app/managers/usersManager.js"></script>
+        <script src="app/managers/walletInvitesManager.js"></script>
+        <script src="app/managers/notificationsManager.js"></script>
+
+        <!--controllers-->
+        <script src="app/vcs/layout/hidden.js"></script>
+        <script src="app/vcs/layout/menu.js"></script>
+        
+        <script src="app/vcs/account/login/login.js"></script>
+        <script src="app/vcs/account/register/register.js"></script>
+        <script src="app/vcs/layout/intro.js"></script>
+
+        <script src="app/vcs/creditCard/creditCard.js"></script>
+        <script src="app/vcs/creditCard/setCard.js"></script>
+
+        <script src="app/vcs/invites/invites.js"></script>
+
+        <script src="app/vcs/profile/profile.js"></script>
+
+        <script src="app/vcs/teams/createWallet.js"></script>
+        <script src="app/vcs/teams/team.js"></script>
+        <script src="app/vcs/teams/teamInvites.js"></script>
+        <script src="app/vcs/teams/teams.js"></script>
+        <script src="app/vcs/teams/wallet.js"></script>
+        <script src="app/vcs/teams/walletInvites.js"></script>
+        <script src="app/vcs/account/forgotPassword/forgotPassword.js"></script>
+        <script src="app/vcs/account/resetPassword/resetPassword.js"></script>
+        <script src="app/vcs/account/verifyPhone/verifyPhone.js"></script>
+
+        <script src="lib/ngCordova/dist/ng-cordova.js"></script>
+        <!-- cordova script (this will be a 404 during development) -->
+        <script src="cordova.js"></script>
+    </head>
+    <body ng-app="app">
+        <ion-nav-view></ion-nav-view>
+        <div ng-controller="hiddenCtrl as vm"></div>
+    </body>
+</html>

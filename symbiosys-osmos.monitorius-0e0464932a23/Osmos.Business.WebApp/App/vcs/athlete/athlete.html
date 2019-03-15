@@ -1,0 +1,53 @@
+﻿<div class="container">
+    <form class="form-horizontal form" name="vm.orderForm" novalidate autocomplete="off">
+        <div class="form-group">
+            <div class="col-sm-2">
+                <a href="/#/athletes">
+                    <button type="button" class="btn btn-primary">< Return</button>
+                </a>
+            </div>
+        </div>
+        <h2>Athlete info</h2>
+        <div class="form-group">
+            <label class="col-sm-3 text-align-right">Name</label>
+            <div class="col-sm-9">
+                <span>{{vm.athlete.firstName + " " + vm.athlete.lastName}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-align-right">Create date</label>
+            <div class="col-sm-9">
+                <span>{{vm.athlete.createdDate | moment}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-align-right">Email</label>
+            <div class="col-sm-9">
+                <span>{{vm.athlete.email}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-align-right">Type</label>
+            <div class="col-sm-9">
+                <span>{{vm.athlete.type}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-align-right">Age</label>
+            <div class="col-sm-9">
+                <span>{{vm.athlete.age}}</span>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-3 text-align-right">Submitted forms</label>
+            <div class="col-sm-3">
+                <span>{{vm.athlete.forms}}</span>
+            </div>
+            <div class="col-sm-6" ng-if="vm.athlete.forms > 0">
+                <button type="button" class="btn btn-primary" ng-click="vm.goToAthleteForms()">Athlete forms history</button>
+            </div>
+        </div>
+
+        <div ng-show="vm.error">{{vm.error}}</div>
+    </form>
+</div>

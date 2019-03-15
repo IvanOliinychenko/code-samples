@@ -1,0 +1,79 @@
+<div class="panel panel-default panel-shadow" ng-show="vm.authorized">
+  <div class="panel-heading title">
+    <span class="panel-title">Bank Relationships</span>
+  </div>
+
+  <div class="panel-heading title">
+        <span class="td-group-title">Manage</span>
+    </div>
+
+  <div class="panel-body">
+
+    <div class="row">
+
+      <div class="col-lg-6 col-md-12 col-sm-12">
+
+        <!-- Table -->
+        <table class="table table-hover table-md-text">
+          <thead>
+            <tr class="borderless">
+                <th>Nick Name</th>
+              <th>Account Name</th>
+              <th>Status</th>
+              <th class="text-right">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="compressed-v">
+            <!-- ngRepeat -->
+            <tr ng-repeat="bankLink in vm.bankLinks" ng-hide="vm.bankLinks.length == 0 || bankLink.status == 'Deleted'">
+                <td class="text-center" ng-show="vm.bankLinks.length == 0">
+                    You don't have any bank bankLinks
+                </td>
+                <td>
+                    {{bankLink.nickName}}
+                </td>
+              <td>
+                {{bankLink.bankAccountNickname}}
+              </td>
+              <td>
+                  {{bankLink.status}}
+              </td>
+              <td class="text-right" ng-show="bankLink.status != 'Deleted'">
+                <a class="btn btn-success btn-save" title="Verify"  href="" ng-click="vm.openVerifyMicroDeposits(bankLink.bankLinkId)" ng-hide="bankLink.verified" ng-disabled="vm.isLoading">
+                  <i class="fa fa-check"></i>
+                </a>
+                <button type="button" class="btn btn-success btn-danger" title="Unlink" ng-click="vm.unlink(bankLink.bankLinkId)" ng-disabled="vm.isLoading">
+                  <i class="fa fa-chain-broken"></i>
+                </button>
+              </td>
+            </tr>
+            <!-- end ngRepeat-->
+          </tbody>
+        </table>
+        <!-- End Table -->
+
+        <a href="" class="btn btn-success btn-save" ng-click="vm.addRelationship()" ng-disabled="vm.isLoading">
+          <strong>Add Relationship</strong>
+        </a>
+
+      </div>
+
+    </div>
+
+    <hr class="panel-separator" />
+
+    <a href="#!/addFunds" class="btn btn-round btn-primary" ng-disabled="vm.isLoading">
+      <strong>Add Funds</strong>
+    </a>
+
+    <a href="#!/transfers" class="btn btn-round btn-default" ng-disabled="vm.isLoading">
+      View Recurrent Transfers
+     </a>
+
+    <a href="#!/withdrawFunds" class="btn btn-round btn-default" ng-disabled="vm.isLoading">
+      Withdraw Funds
+     </a>
+
+  </div>
+
+</div>

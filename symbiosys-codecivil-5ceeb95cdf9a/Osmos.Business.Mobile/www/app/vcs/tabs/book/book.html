@@ -1,0 +1,16 @@
+﻿<ion-view view-title="{{vm.viewTitle}}">
+    <ion-content>
+        <div class="list">
+            <a class="item item-icon-left item-icon-right" ng-repeat="title in vm.titles | orderBy: 'index'" href="#/tab/title/{{title.id}}">
+                <i class="icon icon_livre"></i>
+                <span class="title_label">
+                    <span ng-bind="'TITLE' | translate"></span>
+                    {{' ' + title.label}}
+                </span>
+                <br />
+                <span class="title_content">{{title.content}}</span>
+                <i class="icon icon_fleche_blue"></i>
+            </a>
+        </div>
+    </ion-content>
+</ion-view>

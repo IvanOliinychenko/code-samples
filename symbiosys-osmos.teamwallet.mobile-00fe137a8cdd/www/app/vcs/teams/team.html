@@ -1,0 +1,167 @@
+﻿<ion-view>
+    <ion-content class="content-pd-t text-center">
+        <ion-refresher on-refresh="vm.updateData()"></ion-refresher>
+        <div ng-if="vm.authorized">
+            <h1 class="bold" ng-if="vm.team">{{vm.team.name}}</h1>
+            <div class="tw-toggle">
+                <div class="switch-toggle switch-candy">
+                    <input id="team" name="team" type="radio" ng-model="content" value="team">
+                    <label for="team">Team</label>
+                    <input id="wallet" name="wallet" type="radio" ng-model="content" value="wallet" checked>
+                    <label for="wallet">Wallet</label>
+                    <a></a>
+                </div>
+            </div>
+            <div class="team" ng-show="content === 'team'">
+                <div class="list mg-t">
+                    <div ng-if="vm.teamUsers && vm.teamUsers.length > 0">
+                        <div class="item item-divider row tw-row">
+                            <div class="col tw-col col-90" style="text-align: left;">Users</div>
+                            <div class="col-10" style="text-align: center">
+                                <i class="ion ion-edit" style="padding: 10px" ng-if="vm.teamUsers.length && vm.team.isOwner" ng-click="vm.showDeleteUser = !vm.showDeleteUser"></i>
+                            </div>
+                        </div>
+                        <ion-list show-delete="vm.showDeleteUser">
+                            <ion-item class="item-avatar item-vertical-center" ng-repeat="user in vm.teamUsers" style="display: flex;align-items: center;">
+                                <ion-delete-button class="ion-minus-circled" ng-click="vm.showConfirmDeleteUser(user)" ng-disabled="user.me"></ion-delete-button>
+                                <img ng-src="{{user.profilePicture ? user.profilePicture : 'img/default-avatar.jpg'}}" class="avatar-img">
+                                {{user.firstName}} {{user.lastName}}
+                                <i class="ion ion-star" ng-if="user.role === 'Owner'"></i>
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                    <div ng-if="!vm.teamUsers.length">
+                        No users yet.
+                    </div>
+                    <div class="item item-divider row tw-row">
+                        <div class="col tw-col col-90" style="text-align: left;">Invites</div>
+                        <div class="col tw-col col-10" style="text-align: center;">
+                            <i class="ion ion-edit" style="padding: 10px" ng-if="vm.invites.length" ng-click="vm.showDeleteInvite = !vm.showDeleteInvite"></i>
+                        </div>
+                    </div>
+                    <div ng-if="vm.invites && vm.invites.length > 0">
+                        <ion-list show-delete="vm.showDeleteInvite">
+                            <ion-item ng-repeat="invite in vm.invites" class="item-avatar item-vertical-center">
+                                <ion-delete-button class="ion-minus-circled" ng-click="vm.showConfirmDeleteInvite(invite)"></ion-delete-button>
+                                <img src="img/default-avatar.jpg" class="avatar-img">
+                                <span ng-if="invite.firstName && invite.lastName">{{invite.firstName}} {{invite.lastName}}</span>
+                                <span ng-if="!(invite.firstName && invite.lastName)">{{invite.displayName}}</span>                                
+                            </ion-item>
+                        </ion-list>
+                    </div>
+                    <div ng-if="!vm.invites.length" class="padding text-center">
+                        No users yet.
+                    </div>
+                    <button class="button button-calm tw-btn mg-t" ng-disabled="vm.loading" ng-click="vm.openAddUserToTeamModal()">
+                        Invite user
+                    </button>
+                </div>
+            </div>
+
+
+            <div class="wallet mg-t" ng-show="content === 'wallet'" ng-init="content = 'wallet'">
+                <ion-list ng-if="vm.wallets.length">
+                    <ion-item class="item row tw-row" ng-repeat="wallet in vm.wallets" ng-click="vm.goToWallet(wallet)">
+                        <div class="col tw-col text-left">
+                            {{wallet.name}}
+                        </div>
+                        <div class="col tw-col text-right">
+                            <i class="ion ion-person" style="color: black;"></i><span style="color: black;">&nbsp;{{wallet.usersCount}}</span>&nbsp;
+                        </div>
+                    </ion-item>
+                </ion-list>
+                <div ng-if="!vm.wallets.length">
+                    No wallets yet. Create one!
+                </div>
+                <button class="button button-calm tw-btn mg-t" ng-click="vm.createWallet()">
+                    Create Wallet
+                </button>
+                <br />
+                <button class="button button-assertive tw-btn" ng-click="vm.deleteTeam()" ng-if="vm.team.isOwner">
+                    Delete Team
+                </button>
+                <!--<button class="button button-balanced tw-btn" ng-click="vm.seeUsers()">
+                    Users
+                </button>-->
+            </div>
+        </div>
+    </ion-content>
+    <script id="addUserToTeam.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar-dark">
+                <h1 class="title">Invite user</h1>
+                <button class="button button-icon icon ion-close" ng-click="vm.closeAddUserToTeamModal()"></button>
+            </ion-header-bar>
+            <ion-content>
+                <!-- <div class="list list-inset">
+                    <label class="item item-input tw-input">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="text" placeholder="Search name">
+                    </label>
+                </div> -->
+                <div class="list mg-t" ng-if="vm.users.length">
+                    <a class="item item-icon-right" ng-repeat="contact in vm.contacts" ng-click="vm.inviteUser(contact)">
+                        <b>{{contact.displayName}}</b> <span style="margin-left: 5px; font-size: small; font-style: italic;">{{contact.phoneNumber}}</span>
+                        <i class="icon ion-paper-airplane"></i>
+                    </a>
+                </div>
+                <div ng-if="!vm.contacts.length" class="padding text-center">No contacts to invite yet.</div>
+            </ion-content>
+        </ion-modal-view>
+    </script>
+    <script id="chatWithTeam.html" type="text/ng-template">
+        <ion-modal-view>
+            <ion-header-bar class="bar-dark">
+                <h1 class="title">Chat</h1>
+                <button class="button button-icon icon ion-close" ng-click="vm.closeChatWithTeamModal()"></button>
+            </ion-header-bar>
+            <ion-content class="padding-right padding-left text-center">
+                <div class="chat-container">
+                    <div class="msg-container-other">
+                        <img src="img/avatar-02.jpg" class="chat-avatar-img-left">
+                        <div class="chat-msg">
+                        <p>Hi guys! I thought we could meet Thursday night at the Royal Oak before the game. What do you think?</p>
+                        </div>
+                    </div>
+                    <div class="msg-container-other">
+                        <img src="img/avatar-04.jpg" class="chat-avatar-img-left">
+                        <div class="chat-msg">
+                        <p>Good idea! I have to get the kids at 5. I should be there by 5:30. Is that OK?</p>
+                        </div>
+                    </div>
+                    <div class="msg-container-own">
+                        <img src="img/avatar-01.jpg" class="chat-avatar-img-right">
+                        <div class="chat-msg">
+                        <p>Unfortunately, I will not be able to make this week. Sorry!</p>
+                        </div>
+                    </div>
+                    <div class="msg-container-other">
+                        <img src="img/icon-profile.svg" class="chat-avatar-img-left">
+                        <div class="chat-msg">
+                        <p>Works for me! Cheers!</p>
+                        </div>
+                    </div>
+                    <div class="msg-container-other">
+                        <img src="img/avatar-02.jpg" class="chat-avatar-img-left">
+                        <div class="chat-msg">
+                        <p>Perfect then! See ya!</p>
+                        </div>
+                    </div>
+                </div>
+            </ion-content>
+            <div class="bar bar-footer item-input-inset chat-input">
+                <label class="item-input-wrapper">
+                    <input type="search" placeholder="Write your message">
+                </label>
+                <button class="button button-stable">
+                    <i class="icon ion-paper-airplane"></i>
+                </button>
+            </div>
+        </ion-modal-view>
+    </script>
+
+    <br />
+    <br />
+    <br />
+
+</ion-view>

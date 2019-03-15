@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
+    <meta http-equiv="Content-Security-Policy: media-src: &apos;self&apos; mediastream">
+    <title>Game Of Chat</title>
+
+    <!-- compiled css output -->
+    <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+
+    <script src="lib/ionic/js/ionic.bundle.js"></script>
+    <!-- cordova script (this will be a 404 during development) -->
+    <script src="lib/ng-cordova-master/dist/ng-cordova.min.js"></script>
+    <script src="cordova.js"></script>
+
+    <script src="lib/ng-cordova-oauth/dist/ng-cordova-oauth.min.js"></script>
+
+    <script src="lib/angular-cookies/angular-cookies.min.js"></script>
+    <script src="lib/jquery/dist/jquery.min.js"></script>
+    <script src="lib/lodash/dist/lodash.min.js"></script>
+    <script src="lib/moment/min/moment.min.js"></script>
+
+    <!--signalr-->
+    <script src="lib/signalr/jquery.signalR-2.2.0.min.js"></script>
+
+    <!--quickBlox-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/quickblox/2.7.0/quickblox.min.js"></script>
+    <script src="lib/webrtc-adapter/release/adapter.js"></script>
+
+    <!--osmos-->
+    <script src="app/osmos/osmos.js"></script>
+    <script src="app/osmos/httpService.js"></script>
+
+    <!-- your app's js -->
+    <script src="app/app.js"></script>
+    <script src="app/app.config.js"></script>
+    <script src="app/app.startup.js"></script>
+
+    <!--services-->
+    <script src="app/services/session.js"></script>
+    <script src="app/services/analytics.js"></script>
+    <script src="app/services/signalr.js"></script>
+
+    <!--managers-->
+    <script src="app/managers/configurationManager.js"></script>
+    <script src="app/managers/qbManager.js"></script>
+    <script src="app/managers/accountManager.js"></script>
+    <script src="app/managers/quizzManager.js"></script>
+    <script src="app/managers/reportsManager.js"></script>
+    <script src="app/managers/usersManager.js"></script>
+    <script src="app/managers/enumsManager.js"></script>
+    <script src="app/managers/friendshipsManager.js"></script>
+    <script src="app/managers/messagesManager.js"></script>
+    <script src="app/managers/deviceManager.js"></script>
+    <script src="app/managers/textsManager.js"></script>
+    <script src="app/managers/sharesManager.js"></script>
+    <script src="app/managers/facebookManager.js"></script>
+    <script src="app/managers/toastManager.js"></script>
+    <script src="app/managers/gaManager.js"></script>
+
+    <!--controllers-->
+    <script src="app/vcs/layout/zero.js"></script>
+    <script src="app/vcs/layout/menu.js"></script>
+
+    <script src="app/vcs/profile/profile.js"></script>
+    <script src="app/vcs/matching/matching.js"></script>
+    <script src="app/vcs/matching/chat.js"></script>
+    <script src="app/vcs/friends/friends.js"></script>
+    <script src="app/vcs/friends/textChat.js"></script>
+
+    <script src="app/vcs/account/login/login.js"></script>
+    <script src="app/vcs/account/register/register.js"></script>
+    <script src="app/vcs/account/registerExternal/registerExternal.js"></script>
+    <script src="app/vcs/report/report.js"></script>
+    <script src="app/vcs/report/reports.js"></script>
+    <script src="app/vcs/share/share.js"></script>
+    <script src="app/vcs/layout/setProfile.js"></script>
+    <script src="app/vcs/profile/privacy.js"></script>
+
+</head>
+<body style="height: 100%;" ng-app="app">
+    <ion-nav-view style="height: 100%;width: 100%;display:flex;justify-content:center;align-items:center;">
+        <img src="img/ask-m.png" />
+    </ion-nav-view>
+</body>
+</html>

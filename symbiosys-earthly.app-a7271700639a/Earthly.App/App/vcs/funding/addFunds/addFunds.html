@@ -1,0 +1,253 @@
+<div class="panel panel-default panel-shadow">
+    <div class="panel-heading title">
+        <span class="panel-title">Bank Transfers</span>
+    </div>
+
+    <div class="panel-heading title">
+        <span class="td-group-title">Deposit</span>
+    </div>
+
+    <div class="panel-body">
+
+        <!--BREADCRUMBS-->
+        <div class="row" style="height: 64px; margin-bottom: 3em">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 breadcrumbs-steps" ng-show="vm.activeStepName() != 'End'">
+
+                <div ng-repeat="step in vm.steps" class="steps-wrapper" ng-if="step.name != 'End'">
+                    <div class="{{step.active ? 'circleFocus' : 'circleNoFocus'}}">
+                        {{step.step}}
+                    </div>
+                    <div class="{{step.active ? 'step-emphasis' : ''}} vertical-align: bottom;">
+                        {{step.name}}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+        <!--END BREADCRUMBS-->
+
+        <!--#1 AMOUNT-->
+        <div ng-show="vm.activeStepName() == 'Amount'">
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div id="icon-amount"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <form class="form" name="amountTransfer">
+                        <p>
+                            I want to deposit
+                            <br>
+                            <span class="not-green">$</span>
+                            <input type="text" placeholder="Amount" name="amount" autocomplete="off" sg-number-input required ng-model="vm.transfer.amount">
+                            <br>starting today
+                        </p>
+                    </form>
+                </div>
+
+            </div>
+
+        </div>
+        <!--END #1 AMOUNT-->
+
+        <!--#2 FREQUENCY-->
+        <div ng-show="vm.activeStepName() == 'Frequency'">
+
+            <div class="row">
+
+                <div class="col-lg-12 col-md-12 col-sm-12 breadcrumbs-steps">
+                    <p class="statement">I want to deposit ${{vm.transfer.amount}}</p>
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div id="icon-frequency"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <form class="form not-green">
+                        <div ng-repeat="val in vm.transfersFrequencies">
+                            <label class="radio-options">
+                                <input
+                                type="radio"
+                                name="transfersFrequencies"
+                                ng-value="{{$index}}"
+                                ng-model="vm.selectedFrequency"
+                                ng-disabled="{{$index}} > 0"
+                                ng-change="vm.transfer.frequency = vm.transfersFrequencies[vm.selectedFrequency]"/>
+                                <span class="radio-values">{{val}}</span>
+                            </label>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+        <!--END #2 FREQUENCY-->
+
+        <!--#3 ACCOUNTS-->
+        <div ng-show="vm.activeStepName() == 'Accounts'">
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12 breadcrumbs-steps">
+                    <p class="statement">I want to deposit ${{vm.transfer.amount}} {{vm.transfersFrequencies[vm.selectedFrequency]}}</p>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div id="icon-accounts"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <form class="form" name="bankAccounts">
+                        <p ng-show="vm.bankLinks.length === 0">
+                            You don't have <br />
+                            any bank account connected.
+                        </p>
+                        <p ng-show="vm.bankLinks.length > 0">
+                            from
+                            <select name="account" class="dropdown" required ng-model="vm.selectedBankLink" ng-change="vm.selectedBankLinkChanged()">
+                                <!--<option value="" selected="" disabled>my personal account</option>-->
+                                <option ng-repeat="bankLink in vm.bankLinks" value="{{bankLink.bankLinkId}}">{{bankLink.nickName}}</option>            
+                            </select>
+                            <br>
+                            to my Earthly account
+                        </p>
+                    </form>
+                    <p style="margin-top: 1em;" class="add-account-wrapper">
+                        <a href="#!/createBankRelationship" class="add-account"><i class="add-icon">+</i>Add an Account</a>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+        <!--END #3 ACCOUNTS-->
+
+        <!--#4 CONFIRMATION-->
+        <div ng-show="vm.activeStepName() == 'Confirmation'">
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div id="icon-confirmation"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <form class="form">
+                        <p>
+                            I want to deposit<br>
+                            <span class="not-green">${{vm.transfer.amount}}</span>
+                            <span class="not-green"> {{vm.transfersFrequencies[vm.selectedFrequency]}}</span>
+                            from
+                            <br>
+                            <span class="not-green">{{vm.getSelectedBankLink().nickName}}</span>
+                            <br> to my Earthly account
+                        </p>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!--END #4 CONFIRMATION-->
+
+        <!--#5 END-->
+        <div ng-show="vm.activeStepName() == 'End'" class="end">
+
+            <div class="row">
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <div id="icon-deposit"></div>
+                </div>
+
+                <div class="col-lg-6 col-md-6 col-sm-12">
+                    <p class="congrats">Your deposit request<br> has been initiated.</p>
+                    <p>
+                    <strong>Please allow 3-4 business days for <br>
+                    deposits to appear in your account.</strong>
+                    </p>
+                    <br/>
+                    <a href="#!/transfers" class="btn btn-round btn-primary">
+                        <strong>Back to Bank Transfers</strong>
+                    </a>
+                    <a href="#!/surveys" class="btn btn-round btn-primary">
+                        <strong>Go to surveys</strong>
+                    </a>
+                </div>
+
+                </div>
+
+        </div>
+        <!--END #5 END-->
+
+        <!--BUTTONS-->
+        <div class="row margin-top" ng-hide="vm.activeStepName() == 'End'">
+
+            <div class="col-lg-12 col-md-12 col-sm-12 breadcrumbs-steps">
+                <button class="btn earthly-button earthly-button-picton-blue" ng-click="vm.previousStep()" ng-hide="vm.activeStepName() == 'Amount'">
+                    <i class="fa fa-long-arrow-left icon-left" aria-hidden="true"></i>
+                    {{vm.activeStepName() == 'Confirmation' ? 'Edit' : 'Previous'}}
+                </button>
+                <button class="btn earthly-button earthly-button-turquoise" ng-click="vm.nextStep()" ng-disabled="vm.activeStepName() == 'End' || 
+                    (vm.activeStepName() == 'Amount' && !amountTransfer.$valid) ||
+                    (vm.activeStepName() == 'Accounts' && !bankAccounts.$valid) ||
+                    vm.pendingRequest">
+                    {{vm.activeStepName() == 'Confirmation' ? 'Initiate transfer' : 'Next'}}
+                    <i class="fa fa-long-arrow-right icon-right" aria-hidden="true"></i>
+                </button>
+            </div>
+        </div>
+        <!--END BUTTONS-->
+
+        <!--WARNING-->
+        <div class="row margin-top">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <div class="warning">
+                    <div class="questionMark">?</div>
+                    <p style="margin-bottom: 0;">
+                        <strong>Deposit requests made after 12:00PM EPT will be processed the next business day.</strong></br>
+                        <i>Due to bank transfer limits, you may only deposit up to $100,000 every 30 days.</i>
+                    </p>
+                </div>
+
+            </div>
+
+        </div>
+        <!--END WARNING-->
+
+        <hr class="panel-separator"></hr>
+
+        <div class="row">
+
+            <div class="col-lg-12 col-md-12 col-sm-12">
+
+                <a href="#!/transfers" class="btn btn-round btn-default">
+                    View Recurrent Transfers
+                </a>
+
+                <a href="#!/bankRelationships" class="btn btn-round btn-default">
+                    Manage Bank Accounts
+                </a>
+
+                <a href="#!/withdrawFunds" class="btn btn-round btn-default">
+                    Withdraw Funds
+                </a>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+</div>

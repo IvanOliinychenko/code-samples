@@ -1,0 +1,49 @@
+﻿<fieldset ng-disabled="vm.isLoading">
+    <form name="verify" ng-submit="vm.verify()">
+        <div class="modal-header">
+            <i class="icon-close" ng-click="vm.cancel()"></i>
+            <span class="modal-title" id="modal-title">Verify Micro Deposits&nbsp;&nbsp;&nbsp;</span>
+        </div>
+
+        <div class="modal-body" id="modal-body">
+            <div class="paragraph-body">
+                <span>Follow these steps to authenticate the connection between your bank and your account with us:</span>
+                <ol>
+                    <li><p>We will make 2 small deposits and corresponding withdrawals at your bank. These will be posted to your bank within 3-4 days.</p></li>
+                    <li><p>Review your bank transaction history to identify the two deposits from Folio Investments, Inc.</p></li>
+                    <li><p>Please enter the 2 small deposit amounts below. This will activate the bank link and make it available for use.</p></li>
+                </ol>
+                </br>
+            </div>
+            <div class="input-container input-container-sm" ng-class="{ 'has-error' : !verify.firstAmountOfCents.$valid && verify.firstAmountOfCents.$dirty}">
+                <input class="earthly-input" step="01" autocomplete="off" required
+                       placeholder="Input 1st Deposit" name="firstAmountOfCents" ng-model="vm.microDeposit.firstAmountOfCents" />
+                <div class="errors-container" ng-show="!verify.firstAmountOfCents.$valid && verify.firstAmountOfCents.$dirty">
+                    Amount must be greater than $0.00 and less than $1.00
+                </div>
+            </div>
+            <div class="input-container input-container-sm" ng-class="{ 'has-error' : !verify.secondAmountOfCents.$valid && verify.secondAmountOfCents.$dirty}">
+                <input class="earthly-input" step="1" autocomplete="off" required
+                       placeholder="Input 2nd Deposit" name="secondAmountOfCents" ng-model="vm.microDeposit.secondAmountOfCents" />
+                <div class="errors-container" ng-show="!verify.secondAmountOfCents.$valid && verify.secondAmountOfCents.$dirty">
+                    Amount must be greater than $0.00 and less than $1.00
+                </div>
+            </div>
+        </div>
+        <div class="modal-footer">
+            <div class="buttons-container">
+                <div class="button-container">
+                    <button class="btn earthly-button earthly-button-turquoise" type="submit" ng-click="vm.ok()" ng-disabled="!verify.$valid">
+                        Verify
+                        <i class="fa fa-check-circle" aria-hidden="true"></i>
+                    </button>
+                </div>
+                <div class="button-container">
+                    <button class="btn earthly-button earthly-button-sunglo" type="button" ng-click="vm.cancel()">
+                        Cancel
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>
